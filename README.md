@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center">
   <img src="assets/logo.png" width="180">
 </p>
@@ -22,3 +23,7 @@ socket programming.
 - Socket Programming
 - Threading
 - JSON
+=======
+# ClassChatX-TCP-Chat-System
+A TCP-based client–server chat system for academic communication using socket programming.
+>>>>>>> 47ede2d2c2344bde492ba487e957033070744990
