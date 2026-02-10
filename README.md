@@ -1,7 +1,5 @@
 <p align="center">
   <img src="assets/logo.png" width= auto>
-  <img src="assets/logo.png" width= 50%>
-
 </p>
 
 # ClassChatX
