@@ -1,5 +1,9 @@
 <p align="center">
+<<<<<<< HEAD
   <img src="assets/logo.png" width= auto>
+=======
+  <img src="assets/logo.png" width= 50%>
+>>>>>>> develop
 </p>
 
 # ClassChatX
