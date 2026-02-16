@@ -1,54 +1,64 @@
 import socket
+import threading
 from datetime import datetime
 
-#Server Configuration
 SERVER_HOST = "127.0.0.1"
 SERVER_PORT = 5000
 BUFFER_SIZE = 1024
 
-#Logs
+
 def log(message):
     time_stamp = datetime.now().strftime("%H:%M:%S")
     print(f"[{time_stamp}] {message}")
 
-#Create TCP Server
-def start_server():
-    #create TCP Socket
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    #Bind Socket
-    server_socket.bind((SERVER_HOST, SERVER_PORT))
-
-    #Listen for connections
-    server_socket.listen(1)
-    log(f"ClassChatX server started on {SERVER_HOST}:{SERVER_PORT}")
-    log("Waiting for cleant connection ...")
-
-    #Accept client connections
-    client_socket, client_address = server_socket.accept()
+def handle_client(client_socket, client_address):
     log(f"Client connected from {client_address}")
 
-    #Sent introdution message to client
+   
     intro_message = (
         "Welcome to ClassChatX.\n"
-        "I am the ClassChatX server. I manage client connections and forward messages between users.\n"
+        "You can send messages anytime.\n"
     )
     client_socket.sendall(intro_message.encode())
 
-    #Receive messages from client
-    client_message = client_socket.recv(BUFFER_SIZE).decode()
-    log(f"Message received from client: {client_message}")
+    try:
+        while True:
+            message = client_socket.recv(BUFFER_SIZE)
 
-    #Send acknowledgement
-    response = "Server received your message successfully."
-    client_socket.sendall(response.encode())
+            if not message:
+                break  
 
-    #Close connection
-    client_socket.close()
-    server_socket.close()
-    log("Connection closed. Server shutting down.")
+            decoded_message = message.decode()
+            log(f"Message from {client_address}: {decoded_message}")
+
+            response = f"Server received: {decoded_message}"
+            client_socket.sendall(response.encode())
+
+    except Exception as e:
+        log(f"Error: {e}")
+
+    finally:
+        client_socket.close()
+        log(f"Connection closed for {client_address}")
+
+def start_server():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((SERVER_HOST, SERVER_PORT))
+    server_socket.listen()  
+
+    log(f"ClassChatX server started on {SERVER_HOST}:{SERVER_PORT}")
+    log("Waiting for client connections ...")
+
+    while True:
+        client_socket, client_address = server_socket.accept()
+
+        client_thread = threading.Thread(
+            target=handle_client,
+            args=(client_socket, client_address)
+        )
+
+        client_thread.start()
 
 if __name__ == "__main__":
     start_server()
-
-
