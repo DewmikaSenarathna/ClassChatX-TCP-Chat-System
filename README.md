@@ -56,7 +56,7 @@ Gnss-rainfall-detection-tinyML/
 │
 └──ui/
     └── ui_client.py
-
+```
 ---
 <br>
 
