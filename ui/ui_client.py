@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 from datetime import datetime
 from PIL import Image, ImageTk
-from network_client import NetworkClient
+from client.network_client import NetworkClient
 
 SERVER_HOST = "127.0.0.1"
 SERVER_PORT = 5000
