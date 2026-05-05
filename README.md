@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/classchatx-logo.png" width="180" alt="ClassChatX Logo">
+  <img src="assets/img/classchatx-logo.png" width="180" alt="ClassChatX Logo">
 </p>
 
 <h1 align="center">ClassChatX</h1>
